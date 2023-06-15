@@ -21,10 +21,17 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	
 		String password = passwordEncoder.encode("jashan");
+		String password1 = passwordEncoder.encode("jassa");
 		auth.inMemoryAuthentication()
 		.withUser("jashan")
 		.password(password)
-		.roles("admin");
+		.roles("admin")
+		.and()
+		.withUser("jassa")
+		.password(password1)
+		.roles("user");
+		
+		
 		
 		System.out.println("here is the password encoder  " + passwordEncoder.encode("jassa") );
 		
@@ -35,8 +42,12 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-		.anyRequest()
-		.authenticated()
+		.antMatchers("/hello").authenticated()
+		.antMatchers("/bye").authenticated()
+		.antMatchers("/great/**").permitAll()
+		.antMatchers("/loginCustom").permitAll()
+		.and()
+		.formLogin().loginPage("/loginCustom")
 		.and()
 		.httpBasic();
 	}
