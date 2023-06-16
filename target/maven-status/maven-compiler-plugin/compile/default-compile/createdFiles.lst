@@ -1,0 +1,7 @@
+com\springSecurityConfig\MySecurityConfig.class
+com\springSecurityControllers\HelloWorldController.class
+com\springSecurityControllers\LoginController.class
+com\springSecurityControllers\NameController.class
+com\springSecurityConfig\AppConfig.class
+com\springSecurityConfig\SecurityInitializer.class
+com\springSecurityConfig\WebAppInitializer.class

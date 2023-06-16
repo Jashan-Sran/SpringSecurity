@@ -1,8 +1,11 @@
 package com.springSecurityConfig;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -28,6 +31,21 @@ public class AppConfig {
 	@Bean
 	PasswordEncoder getPasswotd() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public DataSource datasource() {
+		
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		
+		dataSource.setUrl("jdbc:mysql://localhost:3306/springsecurity");
+		dataSource.setUsername("root");
+		dataSource.setPassword("jassa@123");
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		
+		
+		return dataSource;
+		
 	}
 	
 

@@ -1,5 +1,7 @@
 package com.springSecurityConfig;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,24 +19,15 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private DataSource dataSource;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	
-		String password = passwordEncoder.encode("jashan");
-		String password1 = passwordEncoder.encode("jassa");
-		auth.inMemoryAuthentication()
-		.withUser("jashan")
-		.password(password)
-		.roles("admin")
-		.and()
-		.withUser("jassa")
-		.password(password1)
-		.roles("user");
+//	load user from database
 		
-		
-		
-		System.out.println("here is the password encoder  " + passwordEncoder.encode("jassa") );
-		
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(NoOpPasswordEncoder.getInstance());
 		
 	}
 	
@@ -49,7 +42,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.formLogin().loginPage("/loginCustom")
 		.and()
-		.httpBasic();
+		.httpBasic()
+		.and()
+		.logout();
+//		http.csrf().disable();
 	}
 	
 	
