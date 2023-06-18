@@ -27,7 +27,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	
 //	load user from database
 		
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(NoOpPasswordEncoder.getInstance());
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder);
 		
 	}
 	

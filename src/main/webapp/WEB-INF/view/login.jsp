@@ -15,7 +15,7 @@
 		</c:if>
 		<div align="center">
 		<h1>My custom login page</h1>
-		<form:form>
+		<form:form action="/springSecurity/hello" method="get">
 		
 		UserName : <input type="text" name="username"/>
 		
